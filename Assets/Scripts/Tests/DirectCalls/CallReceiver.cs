@@ -1,3 +1,4 @@
+using Assets.Scripts.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,11 +17,11 @@ public class CallReceiver : MonoBehaviour
     {
     }
 
-    internal void TrigerMethod2(int nr, string text)
+    internal void TrigerMethod1(int nr)
     {
     }
-    
-    internal void TrigerMethod5(int nr, string text, float nr2, Vector2 vector2, Vector3 vector3)
+
+    internal void TrigerMethod5(int nr, string text, float nr2, Vector2 vector2, MyData data)
     {
     }
 

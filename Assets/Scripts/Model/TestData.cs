@@ -12,6 +12,7 @@ namespace Assets.Scripts.Model
     {
         public string Name;
         public TestActivator TestActivator;
+        public bool IsDecoupled;
 
         private List<TestResultData> results = new List<TestResultData>();
         internal void AddTestResult(double totalDuration, long runCount)
@@ -39,13 +40,14 @@ namespace Assets.Scripts.Model
 
             var actionsPerSeconds = (secCount != 0) ? totalRunCount / secCount : 0;
 
+            var coupling = IsDecoupled ? "[Decoupled.]" : "[COUPLED!]";
             //testProgress.text = $"DONE : '{testLabel}'";
             //
             //double secconds = totalDuration / 1000;
             //double actionsPerSeconds = runCount / secconds;
 
 
-            return $"'{Name}' time:{(int)secCount}s count:{totalRunCount} ->  Actions/Sec : {(long)actionsPerSeconds}" + "\n";
+            return $"{coupling} '{Name}' time:{(int)secCount}s count:{totalRunCount} ->  Actions/Sec : {(long)actionsPerSeconds}" + "\n";
         }
     }
 }

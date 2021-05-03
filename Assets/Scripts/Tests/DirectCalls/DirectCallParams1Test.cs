@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DirectCallParams2Test : TestBase
+public class DirectCallParams1Test : TestBase
 {
 
 	[SerializeField]
@@ -10,6 +10,6 @@ public class DirectCallParams2Test : TestBase
 
 	internal override void DoTest()
 	{
-		callReceiver.TrigerMethod2(5, "Hello");
+		callReceiver.TrigerMethod1(5);
 	}
 }

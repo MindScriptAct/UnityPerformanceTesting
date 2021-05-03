@@ -84,6 +84,7 @@ public class TestRunner : MonoBehaviour
     internal void HandleTestResults(double totalDuration, long runCount)
     {
         currentTest.AddTestResult(totalDuration, runCount);
+        testResultView.ShowProgress(totalDuration, runCount);
         testResultView.ShowResults(testModel);
         RunNextTest();
     }
