@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Assets.Scripts.Model
     {
         public string Name;
         public TestActivator TestActivator;
-        public bool IsDecoupled;
+        public CouplingMode CouplingMode;
 
         private List<TestResultData> results = new List<TestResultData>();
         internal void AddTestResult(double totalDuration, long runCount)
@@ -40,14 +41,15 @@ namespace Assets.Scripts.Model
 
             var actionsPerSeconds = (secCount != 0) ? totalRunCount / secCount : 0;
 
-            var coupling = IsDecoupled ? "[Decoupled.]" : "[COUPLED!]";
-            //testProgress.text = $"DONE : '{testLabel}'";
-            //
-            //double secconds = totalDuration / 1000;
-            //double actionsPerSeconds = runCount / secconds;
+            var couplingText = "";
+            switch (CouplingMode)
+            {
+                case CouplingMode.DirectlyCoupled: couplingText = "[COUPLED.]"; break;
+                case CouplingMode.InverseCoupled: couplingText = "[Inversed.]"; break;
+                case CouplingMode.Decoupled: couplingText = "[Decoupled!]"; break;
+            }
 
-
-            return $"{coupling} '{Name}' time:{(int)secCount}s count:{totalRunCount} ->  Actions/Sec : {(long)actionsPerSeconds}" + "\n";
+            return $"{couplingText} '{Name}' time:{(int)secCount}s count:{totalRunCount} ->  Actions/Sec : {(long)actionsPerSeconds}" + "\n";
         }
     }
 }

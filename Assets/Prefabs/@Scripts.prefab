@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4315321085716576620}
   - component: {fileID: 4315321085716576627}
+  - component: {fileID: 1504422885}
   m_Layer: 0
   m_Name: '@Scripts'
   m_TagString: Untagged
@@ -45,11 +46,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testDuration: 5000
   intervalDuration: 1000
-  testLabel: {fileID: 0}
-  testProgress: {fileID: 0}
-  testResults: {fileID: 0}
-  testActivators:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  runCount: 5
+  testResultView: {fileID: 0}
+  runButton: {fileID: 0}
+  pauseButton: {fileID: 0}
+--- !u!114 &1504422885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4315321085716576626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d66fe8838846efc42bd0ba5ee0a59f10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TestDatas:
+  - Name: Blank call (test speed)
+    TestActivator: {fileID: 0}
+    CouplingMode: 3
+  - Name: Direct function call, 0 parameters.
+    TestActivator: {fileID: 0}
+    CouplingMode: 0
+  - Name: Direct function call, 1 parameter.
+    TestActivator: {fileID: 0}
+    CouplingMode: 0
+  - Name: Direct function call, 5 parameters.
+    TestActivator: {fileID: 0}
+    CouplingMode: 0
+  - Name: Unity send message, 0 parameters.
+    TestActivator: {fileID: 0}
+    CouplingMode: 0
+  - Name: Unity send message, 1 parameters.
+    TestActivator: {fileID: 0}
+    CouplingMode: 0
+  - Name: Unity send message, 5 parameters as Struct
+    TestActivator: {fileID: 0}
+    CouplingMode: 0
+  - Name: Unity send message, 5 parameters as Tupple
+    TestActivator: {fileID: 0}
+    CouplingMode: 0
+  - Name: C# events, 0 parameters
+    TestActivator: {fileID: 0}
+    CouplingMode: 1
+  - Name: C# events, 1 parameter
+    TestActivator: {fileID: 0}
+    CouplingMode: 1
+  - Name: C# events, 5 parameter
+    TestActivator: {fileID: 0}
+    CouplingMode: 1

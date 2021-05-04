@@ -25,6 +25,10 @@ public class TestRunner : MonoBehaviour
     [SerializeField]
     private TestResultView testResultView;
 
+    [Header("Controls")]
+    [SerializeField]
+    private Button runButton;
+
     private TestModel testModel;
 
     private int currenRun = 1;
@@ -36,13 +40,20 @@ public class TestRunner : MonoBehaviour
     void Start()
     {
         testModel = GetComponent<TestModel>();
-        gameObject.AssertFields(testResultView);
+        gameObject.AssertFields(testResultView, runButton);
+
+        runButton.onClick.AddListener(StartTests);
+
+        testResultView.ShowResults(testModel);
+
+#if UNITY_EDITOR
         StartTests();
+#endif
     }
 
-    private void StartTests()
+    public void StartTests()
     {
-        testResultView.ShowResults(testModel);
+        runButton.gameObject.SetActive(false);
         RunNextTest();
     }
 
@@ -78,8 +89,6 @@ public class TestRunner : MonoBehaviour
             }
         }
     }
-
-
 
     internal void HandleTestResults(double totalDuration, long runCount)
     {
