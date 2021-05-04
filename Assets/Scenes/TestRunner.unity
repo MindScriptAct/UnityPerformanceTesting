@@ -320,6 +320,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 635269418, guid: 961f03e090cf41843a5c1ac1b147c115, type: 3}
+      propertyPath: TestDatas.Array.size
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 635269418, guid: 961f03e090cf41843a5c1ac1b147c115, type: 3}
+      propertyPath: TestDatas.Array.data[14].Name
+      value: Custom string messanging, 0 parameters
+      objectReference: {fileID: 0}
+    - target: {fileID: 635269418, guid: 961f03e090cf41843a5c1ac1b147c115, type: 3}
+      propertyPath: TestDatas.Array.data[15].Name
+      value: Custom string messanging, 1 parameter
+      objectReference: {fileID: 0}
+    - target: {fileID: 635269418, guid: 961f03e090cf41843a5c1ac1b147c115, type: 3}
+      propertyPath: TestDatas.Array.data[16].Name
+      value: Custom string messanging, 5 parameter
+      objectReference: {fileID: 0}
+    - target: {fileID: 635269418, guid: 961f03e090cf41843a5c1ac1b147c115, type: 3}
+      propertyPath: TestDatas.Array.data[14].testPrefab
+      value: 
+      objectReference: {fileID: 8472558082478287888, guid: 3dbfdda6f95ada24d8496d7ae12b2a35, type: 3}
+    - target: {fileID: 635269418, guid: 961f03e090cf41843a5c1ac1b147c115, type: 3}
+      propertyPath: TestDatas.Array.data[15].testPrefab
+      value: 
+      objectReference: {fileID: 116052569332957686, guid: f4f6c2e342c6f12438bf759457c86a7e, type: 3}
+    - target: {fileID: 635269418, guid: 961f03e090cf41843a5c1ac1b147c115, type: 3}
+      propertyPath: TestDatas.Array.data[16].testPrefab
+      value: 
+      objectReference: {fileID: 1425360782619288531, guid: 17baf742dc6b6df4db0baba336e157ca, type: 3}
+    - target: {fileID: 635269418, guid: 961f03e090cf41843a5c1ac1b147c115, type: 3}
+      propertyPath: TestDatas.Array.data[14].CouplingMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 635269418, guid: 961f03e090cf41843a5c1ac1b147c115, type: 3}
+      propertyPath: TestDatas.Array.data[15].CouplingMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 635269418, guid: 961f03e090cf41843a5c1ac1b147c115, type: 3}
+      propertyPath: TestDatas.Array.data[16].CouplingMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4315321085716576620, guid: 961f03e090cf41843a5c1ac1b147c115, type: 3}
       propertyPath: m_RootOrder
       value: 0

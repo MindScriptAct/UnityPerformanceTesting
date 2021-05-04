@@ -1,9 +1,6 @@
 ﻿using Assets.Scripts.Constants;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Model
@@ -17,6 +14,11 @@ namespace Assets.Scripts.Model
         public CouplingMode CouplingMode;
 
         private List<TestResultData> results = new List<TestResultData>();
+
+        private double totalDurationMs = 0;
+        private long totalRunCount = 0;
+        private double actionsPerSec;
+
         internal void AddTestResult(double totalDuration, long runCount)
         {
             results.Add(
@@ -26,21 +28,15 @@ namespace Assets.Scripts.Model
                     RunCount = runCount
                 }
             );
+            totalDurationMs += totalDuration;
+            totalRunCount += runCount;
+            double secCount = totalDurationMs / 1000;
+            actionsPerSec = (secCount != 0) ? totalRunCount / secCount : 0;
         }
 
-        internal string GetSumary()
+        internal string GetSumary(TestData controlTest)
         {
-            double totalDuration = 0;
-            long totalRunCount = 0;
-            foreach (var result in results)
-            {
-                totalDuration += result.DurationMs;
-                totalRunCount += result.RunCount;
-
-            }
-            double secCount = totalDuration / 1000;
-
-            var actionsPerSeconds = (secCount != 0) ? totalRunCount / secCount : 0;
+            double secCount = totalDurationMs / 1000;
 
             var couplingText = "";
             switch (CouplingMode)
@@ -50,7 +46,20 @@ namespace Assets.Scripts.Model
                 case CouplingMode.Decoupled: couplingText = "[Decoupled!]"; break;
             }
 
-            return $"{couplingText} '{Name}' time:{(int)secCount}s count:{totalRunCount} ->  Actions/Sec : {(long)actionsPerSeconds}" + "\n";
+            double effectiveness = 0;
+            var controllActionsPerSec = controlTest.GetActionsPerSec();
+            if (actionsPerSec > 0 && controllActionsPerSec > 0)
+            {
+                var test = (double)(actionsPerSec / controllActionsPerSec) * 100;
+                effectiveness = Math.Round((double)(actionsPerSec / controllActionsPerSec) * 100, 2);
+            }
+
+            return $"{couplingText} '{Name}' time:{(int)secCount}s count:{totalRunCount} ->  Actions/Sec : {(long)actionsPerSec}         {effectiveness}%" + "\n";
+        }
+
+        private double GetActionsPerSec()
+        {
+            return actionsPerSec;
         }
     }
 }

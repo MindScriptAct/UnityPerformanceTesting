@@ -49,9 +49,11 @@ public class TestResultView : MonoBehaviour
     {
         string result = "";
 
+        TestData controlTest = testModel.TestDatas[0];
+
         foreach (TestData test in testModel.TestDatas)
         {
-            result += test.GetSumary();
+            result += test.GetSumary(controlTest);
         }
         testResults.text = result;
     }
