@@ -27,7 +27,6 @@ public class TestResultView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     internal void ShowAllDone()
@@ -38,7 +37,6 @@ public class TestResultView : MonoBehaviour
 
     internal void ShowProgress(double totalDuration, long runCount)
     {
-
         testProgress.text = $"Running ...  time:{totalDuration}ms  count:{runCount}";
     }
 

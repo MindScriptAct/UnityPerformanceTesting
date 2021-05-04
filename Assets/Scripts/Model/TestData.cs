@@ -12,7 +12,8 @@ namespace Assets.Scripts.Model
     public class TestData
     {
         public string Name;
-        public TestActivator TestActivator;
+        //public TestActivator TestActivator;
+        public GameObject testPrefab;
         public CouplingMode CouplingMode;
 
         private List<TestResultData> results = new List<TestResultData>();

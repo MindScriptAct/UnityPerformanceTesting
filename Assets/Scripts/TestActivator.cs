@@ -21,7 +21,6 @@ public class TestActivator : MonoBehaviour
     {
         testRunner = Singleton<TestRunner>.Instance;
         Assert.IsNotNull(testTriger, $"testTriger must be set to {gameObject.name}");
-        Disable();
     }
 
     // Update is called once per frame
@@ -56,11 +55,5 @@ public class TestActivator : MonoBehaviour
         this.intervalDuration = intervalDuration;
         gameObject.SetActive(true);
         enabled = true;
-    }
-
-    internal void Disable()
-    {
-        gameObject.SetActive(false);
-        enabled = false;
     }
 }

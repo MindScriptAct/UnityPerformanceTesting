@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 public class TestRunner : MonoBehaviour
@@ -25,6 +26,9 @@ public class TestRunner : MonoBehaviour
     [SerializeField]
     private TestResultView testResultView;
 
+    [SerializeField]
+    private GameObject clonePlaceholder;
+
     [Header("Controls")]
     [SerializeField]
     private Button runButton;
@@ -34,16 +38,18 @@ public class TestRunner : MonoBehaviour
     private int currenRun = 1;
     private int currenTestId = -1;
     private TestData currentTest;
+    private GameObject currentTestObject;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        testModel = GetComponent<TestModel>();
+        testModel = GetComponentInChildren<TestModel>();
+
         gameObject.AssertFields(testResultView, runButton);
+        Assert.IsNotNull(testModel, "TestModel component must be added.");
 
         runButton.onClick.AddListener(StartTests);
-
         testResultView.ShowResults(testModel);
 
 #if UNITY_EDITOR
@@ -66,15 +72,19 @@ public class TestRunner : MonoBehaviour
 
     private void RunNextTest()
     {
-        if (currentTest != null)
+        if (currentTestObject != null)
         {
-            currentTest.TestActivator.Disable();
+            Destroy(currentTestObject);
+            currentTestObject = null;
         }
         currenTestId++;
         if (currenTestId < testModel.TestDatas.Length)
         {
             currentTest = testModel.TestDatas[currenTestId];
-            currentTest.TestActivator.StartTest(testDuration, intervalDuration);
+
+            currentTestObject = clonePlaceholder.InstantiateChild(currentTest.testPrefab);
+            currentTestObject.GetComponent<TestActivator>().StartTest(testDuration, intervalDuration);
+
             testResultView.ShowCurrentTestName($"[{currenRun}/{runCount}]\t{currentTest.Name}");
         }
         else
