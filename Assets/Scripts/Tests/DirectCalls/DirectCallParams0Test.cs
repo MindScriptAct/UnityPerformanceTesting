@@ -10,6 +10,7 @@ public class DirectCallParams0Test : TestBase
 
     internal override void DoTest()
     {
+        //Debug.Log($"DirectCallParams0Test - DoTest");
         callReceiver.TrigerMethod0();
     }
 }

@@ -15,6 +15,10 @@ public class UnityEventSubscriber : MonoBehaviour
     [SerializeField]
     private UnityEventsParams5Test publisher5;
 
+    private int testNr;
+    private int testNr1;
+    private int testNr5;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,18 +39,21 @@ public class UnityEventSubscriber : MonoBehaviour
 
     private void HandleParam0()
     {
-        Debug.Log("HandleParam0");
+        //Debug.Log("HandleParam0");
+        testNr++;
     }
 
 
     private void HandleParam1(int nr)
     {
-        Debug.Log($"HandleParam1 {nr}");
+        //Debug.Log($"HandleParam1 {nr}");
+        testNr1++;
     }
 
     private void HandleParam5(DataPack data)
     {
-        Debug.Log($"HandleParam5 {data.Nr} {data.Text} {data.Nr2} {data.Vector2.x} {data.MyData.Text}");
+        //Debug.Log($"HandleParam5 {data.Nr} {data.Text} {data.Nr2} {data.Vector2.x} {data.MyData.Text}");
+        testNr5++;
     }
 
     // Update is called once per frame

@@ -14,6 +14,9 @@ public class CsharpEventSubscriber : MonoBehaviour
 
     [SerializeField]
     private CsharpEventsParams5Test publisher5;
+    private int testNr;
+    private int testNr1;
+    private int testNr5;
 
 
     // Start is called before the first frame update
@@ -36,17 +39,20 @@ public class CsharpEventSubscriber : MonoBehaviour
     private void HandleParam0()
     {
         //Debug.Log("HandleParam0");
+        testNr++;
     }
 
 
     private void HandleParam1(int nr)
     {
         //Debug.Log($"HandleParam1 {nr}");
+        testNr1++;
     }
 
     private void HandleParam5(int nr, string text, double nr2, Vector2 vector2, MyData data)
     {
         //Debug.Log($"HandleParam5 {nr} {text} {nr2} {vector2.x} {data.Text}");
+        testNr5++;
     }
 
     // Update is called once per frame

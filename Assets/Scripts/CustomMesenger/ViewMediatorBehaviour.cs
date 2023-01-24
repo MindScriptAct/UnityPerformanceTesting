@@ -7,11 +7,11 @@ public class ViewMediatorBehaviour : TestBase
 {
 
     private ModuleBehaviour module;
-
+    
     // Start is called before the first frame update
     void Awake()
     {
-        module = transform.root.GetComponent<ModuleBehaviour>();
+        module = transform.parent.GetComponent<ModuleBehaviour>();
     }
 
     // Update is called once per frame
@@ -27,6 +27,7 @@ public class ViewMediatorBehaviour : TestBase
 
     public void RegisterHandler(string message, Action<object> action)
     {
+        //Debug.Log($"ViewMediatorBehaviour - RegisterHandler ... {module}");
         module.RegisterHandler(message, action);
     }
 

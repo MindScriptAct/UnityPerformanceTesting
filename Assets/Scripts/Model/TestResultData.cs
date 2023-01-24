@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Model
 {
-    public class TestResultData
+    internal class TestResultData
     {
-        public double DurationMs { get; set; }
-        public long RunCount { get; set; }
+        public string CouplingType { get; internal set; }
+        public string TestName { get; internal set; }
+        public string RunCount { get; internal set; }
+        public long TotalActionCount { get; internal set; }
+        public int TotalDuration { get; internal set; }
+        public int ActionsPerSec { get; internal set; }
+        public double Performance { get; internal set; }
     }
 }

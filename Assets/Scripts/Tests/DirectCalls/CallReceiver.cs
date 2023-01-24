@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class CallReceiver : MonoBehaviour
 {
+    private int testNr;
+    private int testNr1;
+    private int testNr5;
 
     // Start is called before the first frame update
     void Start()
@@ -16,20 +19,18 @@ public class CallReceiver : MonoBehaviour
     internal void TrigerMethod0()
     {
         //Debug.Log("TrigerMethod0");
+        testNr++;
     }
 
     internal void TrigerMethod1(int nr)
     {
         //Debug.Log($"TrigerMethod1 {nr}");
+        testNr1++;
     }
 
     internal void TrigerMethod5(int nr, string text, float nr2, Vector2 vector2, MyData data)
     {
         //Debug.Log($"TrigerMethod5 {nr} {text} {nr2} {vector2.x} {data.Text}");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        testNr5++;
     }
 }

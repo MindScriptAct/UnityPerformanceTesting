@@ -5,6 +5,5 @@ using UnityEngine;
 
 public abstract class TestBase : MonoBehaviour
 {
-
     abstract internal void DoTest();
 }

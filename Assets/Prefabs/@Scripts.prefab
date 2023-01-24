@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4315321085716576620}
   m_RootOrder: 0
@@ -44,48 +45,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TestDatas:
-  - Name: Blank call (test speed)
+  - Name: Blank call (Baseline speed)
     testPrefab: {fileID: 8039136231924140186, guid: c65bca478940ec34780230fe4d77f0d7, type: 3}
     CouplingMode: 3
-  - Name: Direct function call, 0 parameters.
+  - Name: Direct function call, 0 params
     testPrefab: {fileID: 8559993952246813048, guid: 9bcd2dffc91ddc14baccb0f4d733befe, type: 3}
     CouplingMode: 0
-  - Name: Direct function call, 1 parameter.
+  - Name: Direct function call, 1 param
     testPrefab: {fileID: 19819802335044574, guid: e31cf67c49180ff4aaf7f010339ae60c, type: 3}
     CouplingMode: 0
-  - Name: Direct function call, 5 parameters.
+  - Name: Direct function call, 5 params
     testPrefab: {fileID: 317957783477865895, guid: 1f3c3d9979c5039428be4239c409abb1, type: 3}
     CouplingMode: 0
-  - Name: Unity send message, 0 parameters.
+  - Name: Unity send message, 0 params
     testPrefab: {fileID: 6080533761089909034, guid: 092862c5b7ebd3a43b32f6545a5656e8, type: 3}
     CouplingMode: 0
-  - Name: Unity send message, 1 parameters.
+  - Name: Unity send message, 1 param
     testPrefab: {fileID: 2638405869425009092, guid: af4ad87db852d5f49939fcfe2b4a5f53, type: 3}
     CouplingMode: 0
-  - Name: Unity send message, 5 parameters as Struct
+  - Name: Unity send message,  5 Struct params
     testPrefab: {fileID: 8024121686747542704, guid: 9cc26c10e89fdf545ada84d5d2690737, type: 3}
     CouplingMode: 0
-  - Name: Unity send message, 5 parameters as Tupple
+  - Name: Unity send message, 5 Tupple params
     testPrefab: {fileID: 6579847804442275646, guid: 0665c03a63f6dce4fb63a559eaf92dd9, type: 3}
     CouplingMode: 0
-  - Name: C# events, 0 parameters
+  - Name: C# events, 0 params
     testPrefab: {fileID: 2835493048073058898, guid: 42f9a0af9b1918546aa440fa4e26754b, type: 3}
     CouplingMode: 1
-  - Name: C# events, 1 parameter
+  - Name: C# events, 1 param
     testPrefab: {fileID: 377333943198756107, guid: f0fd41b13bb1e084bb06c3228ab0da63, type: 3}
     CouplingMode: 1
-  - Name: C# events, 5 parameters
+  - Name: C# events, 5 params
     testPrefab: {fileID: 8964980782677591115, guid: f5ea7d77d93615a46abc0ff4403876ad, type: 3}
     CouplingMode: 1
-  - Name: Unity events, 0 parameters
+  - Name: Unity events, 0 params
     testPrefab: {fileID: 7036138038567443487, guid: 2fae84933f1f3c84bb51516d23e248a7, type: 3}
     CouplingMode: 1
-  - Name: Unity events, 1 parameter
+  - Name: Unity events, 1 param
     testPrefab: {fileID: 19819802335044574, guid: e31cf67c49180ff4aaf7f010339ae60c, type: 3}
     CouplingMode: 1
-  - Name: Unity events, 5 parameters
+  - Name: Unity events, 5 params
     testPrefab: {fileID: 317957783477865895, guid: 1f3c3d9979c5039428be4239c409abb1, type: 3}
     CouplingMode: 1
+  - Name: Custom string messanging, 0 params
+    testPrefab: {fileID: 8472558082478287888, guid: 3dbfdda6f95ada24d8496d7ae12b2a35, type: 3}
+    CouplingMode: 2
+  - Name: Custom string messanging, 1 param
+    testPrefab: {fileID: 116052569332957686, guid: f4f6c2e342c6f12438bf759457c86a7e, type: 3}
+    CouplingMode: 2
+  - Name: Custom string messanging, 5 params
+    testPrefab: {fileID: 1425360782619288531, guid: 17baf742dc6b6df4db0baba336e157ca, type: 3}
+    CouplingMode: 2
 --- !u!1 &4315321085716576626
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,6 +123,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 635269417}
   m_Father: {fileID: 0}

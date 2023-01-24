@@ -18,27 +18,31 @@ public class TestRunner : MonoBehaviour
     [SerializeField]
     private int intervalDuration = 1000;
 
+    [Tooltip("Interval to warm up each test in ms.")]
+    [SerializeField]
+    private int warmUpDuration = 500;
+
+
     [Tooltip("Test repeat count.")]
     [SerializeField]
     private int runCount = 5;
 
-    [Header("View")]
-    [SerializeField]
-    private TestResultView testResultView;
+    [Header("View")][SerializeField] private TestResultView testResultView;
 
-    [SerializeField]
-    private GameObject clonePlaceholder;
+    [SerializeField] private GameObject clonePlaceholder;
 
-    [Header("Controls")]
-    [SerializeField]
-    private Button runButton;
+    [Header("Controls")][SerializeField] private Button runButton;
+    [SerializeField] private Button copyButton;
 
     private TestModel testModel;
 
-    private int currenRun = 1;
+    private int currenRun = 0;
     private int currenTestId = -1;
     private TestData currentTest;
     private GameObject currentTestObject;
+    private bool useBase = true;
+
+    public string CurrentTestName => currentTest.Name;
 
 
     // Start is called before the first frame update
@@ -50,41 +54,69 @@ public class TestRunner : MonoBehaviour
         Assert.IsNotNull(testModel, "TestModel component must be added.");
 
         runButton.onClick.AddListener(StartTests);
-        testResultView.ShowResults(testModel);
+        copyButton.onClick.AddListener(CopyLog);
+
+        copyButton.gameObject.SetActive(false);
+
 
 #if UNITY_EDITOR
-        StartTests();
+        //StartTests();
 #endif
+        testResultView.ShowResults(testModel);
     }
 
     public void StartTests()
     {
         runButton.gameObject.SetActive(false);
-        RunNextTest();
+        copyButton.gameObject.SetActive(true);
+        StartCoroutine(RunNextTest());
+    }
+
+    private void CopyLog()
+    {
+        GUIUtility.systemCopyBuffer = testResultView.GetText(testModel);
     }
 
     private void RerunTests()
     {
+        useBase = true;
         currenTestId = -1;
         currenRun++;
-        RunNextTest();
+        StartCoroutine(RunNextTest());
     }
 
-    private void RunNextTest()
+    private IEnumerator RunNextTest()
     {
+        //Debug.LogWarning(" ............ Destroy(currentTestObject)");
         if (currentTestObject != null)
         {
             Destroy(currentTestObject);
             currentTestObject = null;
         }
-        currenTestId++;
-        if (currenTestId < testModel.TestDatas.Length)
+
+        yield return null;
+
+        //Debug.LogWarning(" ............ run new test..");
+
+        currentTest = GetNextTest();
+
+
+        if (currentTest != null)
         {
-            currentTest = testModel.TestDatas[currenTestId];
+            Debug.Log($"\tStarting test {currentTest.Name} {currenRun}/{runCount}");
 
             currentTestObject = clonePlaceholder.InstantiateChild(currentTest.testPrefab);
-            currentTestObject.GetComponent<TestActivator>().StartTest(testDuration, intervalDuration);
+            var testActivator = currentTestObject.GetComponent<TestActivator>();
 
+            if (currenRun == 0)
+            {
+                testActivator.StartTest(warmUpDuration, warmUpDuration);
+            }
+            else
+            {
+                testActivator.StartTest(testDuration, intervalDuration);
+
+            }
             testResultView.ShowCurrentTestName($"[{currenRun}/{runCount}]\t{currentTest.Name}");
         }
         else
@@ -100,12 +132,44 @@ public class TestRunner : MonoBehaviour
         }
     }
 
+    private TestData GetNextTest()
+    {
+        currenTestId++;
+
+        if (useBase)
+        {
+            if (currenTestId < testModel.BaseDatas.Length)
+            {
+                return testModel.BaseDatas[currenTestId];
+            }
+            else
+            {
+                currenTestId = 0;
+                useBase = false;
+            }
+        }
+
+        if (!useBase)
+        {
+            if (currenTestId < testModel.TestDatas.Length)
+            {
+                return testModel.TestDatas[currenTestId];
+            }
+        }
+        return null;
+
+
+    }
+
     internal void HandleTestResults(double totalDuration, long runCount)
     {
-        currentTest.AddTestResult(totalDuration, runCount);
-        testResultView.ShowProgress(totalDuration, runCount);
-        testResultView.ShowResults(testModel);
-        RunNextTest();
+        if (currenRun != 0)
+        {
+            currentTest.AddTestResult(totalDuration, runCount);
+            testResultView.ShowProgress(totalDuration, runCount);
+            testResultView.ShowResults(testModel);
+        }
+        StartCoroutine(RunNextTest());
     }
 
     internal void HandleTestProgress(double totalDuration, long runCount)

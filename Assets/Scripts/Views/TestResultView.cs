@@ -3,25 +3,25 @@ using Assets.Scripts.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TestResultView : MonoBehaviour
 {
-    [SerializeField]
-    private Text testLabel;
+    [SerializeField] private Text testLabel;
 
-    [SerializeField]
-    private Text testProgress;
+    [SerializeField] private Text testProgress;
 
-    [SerializeField]
-    private InputField testResults;
+    [SerializeField] private ResultPanelView basePanelView;
+    [SerializeField] private ResultPanelView resultPanelView;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.AssertFields(testLabel, testProgress, testResults);
+        //gameObject.AssertFields(testLabel, testProgress, testResults);
     }
 
     // Update is called once per frame
@@ -47,14 +47,62 @@ public class TestResultView : MonoBehaviour
 
     internal void ShowResults(TestModel testModel)
     {
-        string result = "";
+        //string result = "";
 
-        TestData controlTest = testModel.TestDatas[0];
 
-        foreach (TestData test in testModel.TestDatas)
+        List<TestResultData> baseDatas = new List<TestResultData>();
+        foreach (TestData item in testModel.BaseDatas)
         {
-            result += test.GetSumary(controlTest);
+            baseDatas.Add(CreateTestResultData(item, item));
         }
-        testResults.text = result;
+        basePanelView.ShowResult(baseDatas);
+
+        List<TestResultData> resultDatas = new List<TestResultData>();
+        foreach (TestData item in testModel.TestDatas)
+        {
+            TestData controlTest = testModel.BaseDatas.FirstOrDefault(t => t.Type == item.Type);
+            if (controlTest == null)
+            {
+                Debug.LogError(" Controll data not found for test : " + item.Name);
+            }
+            resultDatas.Add(CreateTestResultData(item, controlTest));
+        }
+        resultPanelView.ShowResult(resultDatas);
+    }
+
+    private TestResultData CreateTestResultData(TestData test, TestData controlTest)
+    {
+        return new TestResultData()
+        {
+            CouplingType = test.CouplingModeName,
+            TestName = test.Name,
+            RunCount = test.RunCountSumText,
+            TotalActionCount = test.TotalActionCount,
+            TotalDuration = test.TotalDuration,
+            ActionsPerSec = test.ActionsPerSec,
+            Performance = test.GetPerformanceComparedTo(controlTest)
+        };
+    }
+
+    internal string GetText(TestModel testModel)
+    {
+        var strnigBuilder = new StringBuilder();
+
+        strnigBuilder.AppendLine($"Base ##############################################################################################");
+        strnigBuilder.AppendLine($"Type\tName\tRun Count Sum\tTotal run count\tDuration sec \t Actions/Sec\tPerformance %");
+        foreach (TestData item in testModel.BaseDatas)
+        {
+            strnigBuilder.AppendLine($"{item.CouplingModeName}\t{item.Name}\t{item.RunCountSumText}\t{item.TotalActionCount}\t{item.TotalDuration}\t {item.ActionsPerSec}\t{item.GetPerformanceComparedTo(item)}");
+        }
+
+        strnigBuilder.AppendLine($"Tests #############################################################################################");
+        strnigBuilder.AppendLine($"Type\tName\tRun Count Sum\tTotal run count\tDuration sec \t Actions/Sec\tPerformance %");
+        foreach (TestData item in testModel.TestDatas)
+        {
+            TestData controlTest = testModel.BaseDatas.FirstOrDefault(t => t.Type == item.Type);
+            strnigBuilder.AppendLine($"{item.CouplingModeName}\t{item.Name}\t{item.RunCountSumText}\t{item.TotalActionCount}\t{item.TotalDuration}\t {item.ActionsPerSec}\t{item.GetPerformanceComparedTo(controlTest)}");
+        }
+
+        return strnigBuilder.ToString();
     }
 }
